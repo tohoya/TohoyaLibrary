@@ -6,25 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e6b3264-fa8f-4edf-933e-7501562bd4ba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwIDListenerService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwListenerService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/QuickstartPreferences.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/RegistrationIntentService.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/GcmIntentService.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/GcmBroadcastReceiver.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/GcmBroadcastReceiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotificationListener.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotificationListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/net/JwNetwork.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/net/JwNetwork.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebChromeClient.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebChromeClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebChromeClientListener.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebChromeClientListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebView.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebViewListener.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/webkit/JwWebViewListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/tohoyalibrary.iml" afterPath="$PROJECT_DIR$/tohoyalibrary/tohoyalibrary.iml" />
-    </list>
+    <list default="true" id="1e6b3264-fa8f-4edf-933e-7501562bd4ba" name="Default" comment="" />
     <ignored path="TohoyaLibrary.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JwNotification.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="JwNotification.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1024">
-              <caret line="192" column="21" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
+            <state relative-caret-position="49">
+              <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,14 +102,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/AndroidManifest.xml">
           <provider editor-type-id="android-manifest">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
+            <state relative-caret-position="590">
+              <caret line="58" column="33" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -2224,8 +2206,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2720" />
-    <option name="y" value="23" />
+    <option name="x" value="2838" />
+    <option name="y" value="28" />
     <option name="width" value="1499" />
     <option name="height" value="1273" />
   </component>
@@ -2689,7 +2671,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2720" y="23" width="1499" height="1273" extended-state="0" />
+    <frame x="2838" y="28" width="1499" height="1273" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2852,24 +2834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotificationListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1024">
-          <caret line="192" column="21" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/QuickstartPreferences.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -2934,9 +2898,27 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="42" column="12" selection-start-line="42" selection-start-column="12" selection-end-line="42" selection-end-column="12" />
+        <state relative-caret-position="590">
+          <caret line="58" column="33" selection-start-line="58" selection-start-column="33" selection-end-line="58" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotificationListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
