@@ -9,14 +9,14 @@ import android.webkit.WebView;
 
 public interface JwWebChromeClientListener {
     /**
-     *
+     * onProgressEvent
      * @param webView
      * @param progress
      */
     void onProgressEvent(WebView webView, int progress);
 
     /**
-     *
+     * onAlertEvent
      * @param webView
      * @param url
      * @param message
@@ -26,7 +26,7 @@ public interface JwWebChromeClientListener {
     boolean onAlertEvent(WebView webView, String url, String message, final JsResult result);
 
     /**
-     *
+     * onConfirmEvent
      * @param webView
      * @param url
      * @param message

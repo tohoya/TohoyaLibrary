@@ -13,37 +13,51 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by jinyoungho on 2016. 11. 9..
  */
 
 public class JwNotification {
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-
-    private String sender_id;
-    private String regid;
-
-    // SharedPreferences에 저장할 때 key 값으로 사용됨.
+    public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
-
-    // SharedPreferences에 저장할 때 key 값으로 사용됨.
     private static final String PROPERTY_APP_VERSION = "appVersion";
-    private static final String TAG = "jWNotification";
-
-    String SENDER_ID;
-
-    private Context myApp;
-    private GoogleCloudMessaging myGcm;
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private JwNotificationListener myListener;
 
+    /**
+     * Substitute you own sender ID here. This is the project number you got
+     * from the API Console.
+     */
+    String SENDER_ID;
+
+    /**
+     * Tag used on log messages.
+     */
+    static final String TAG = "JwGcmNotification";
+
+    GoogleCloudMessaging gcm;
+    AtomicInteger msgId = new AtomicInteger();
+    SharedPreferences prefs;
+    Context context;
+
+    String regid;
+
+    /**
+     * JwNotification
+     * @param context
+     * @param id
+     */
     public JwNotification(Context context, String id) {
         SENDER_ID = id;
-        myApp = context;
-        myListener = (JwNotificationListener) myApp;
+        this.context = context;
+        myListener = (JwNotificationListener) context;
 
-        if(isPlayServices()) {
-            myGcm = GoogleCloudMessaging.getInstance(myApp);
+        // Check device for Play Services APK. If check succeeds, proceed with
+        //  GCM registration.
+        if (isPlayServices()) {
+            gcm = GoogleCloudMessaging.getInstance(context);
             regid = getRegistrationId(context);
 
             if (regid.isEmpty()) {
@@ -51,19 +65,29 @@ public class JwNotification {
             } else {
                 myListener.onTokenResponse(regid);
             }
+        } else {
+            Log.i(TAG, "No valid Google Play Services APK found.");
         }
     }
 
-    public String getRegistrationId(Context context) {
+    /**
+     * Gets the current registration token for application on GCM service.
+     * <p>
+     * If result is empty, the app needs to register.
+     *
+     * @return registration token, or empty string if there is no existing
+     *         registration token.
+     */
+    private String getRegistrationId(Context context) {
         final SharedPreferences prefs = getGCMPreferences(context);
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
         if (registrationId.isEmpty()) {
             Log.i(TAG, "Registration not found.");
             return "";
         }
-
-        // 앱이 업데이트 되었는지 확인하고, 업데이트 되었다면 기존 등록 아이디를 제거한다.
-        // 새로운 버전에서도 기존 등록 아이디가 정상적으로 동작하는지를 보장할 수 없기 때문이다.
+        // Check if app was updated; if so, it must clear the registration ID
+        // since the existing registration ID is not guaranteed to work with
+        // the new app version.
         int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) {
@@ -73,11 +97,19 @@ public class JwNotification {
         return registrationId;
     }
 
+    /**
+     * @return Application's {@code SharedPreferences}.
+     */
     private SharedPreferences getGCMPreferences(Context context) {
-        return myApp.getSharedPreferences(myApp.getClass().getSimpleName(),
+        // This sample app persists the registration ID in shared preferences, but
+        // how you store the registration ID in your app is up to you.
+        return context.getSharedPreferences(context.getClass().getSimpleName(),
                 Context.MODE_PRIVATE);
     }
 
+    /**
+     * @return Application's version code from the {@code PackageManager}.
+     */
     private static int getAppVersion(Context context) {
         try {
             PackageInfo packageInfo = context.getPackageManager()
@@ -88,24 +120,34 @@ public class JwNotification {
             throw new RuntimeException("Could not get package name: " + e);
         }
     }
+
+    /**
+     * registerInBackground
+     */
     private void registerInBackground() {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
                 String msg = "";
                 try {
-                    if (myGcm == null) {
-                        myGcm = GoogleCloudMessaging.getInstance(myApp);
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(context);
                     }
-                    regid = myGcm.register(SENDER_ID);
+                    regid = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regid;
 
-                    // 서버에 발급받은 등록 아이디를 전송한다.
-                    // 등록 아이디는 서버에서 앱에 푸쉬 메시지를 전송할 때 사용된다.
+                    // You should send the registration ID to your server over HTTP,
+                    // so it can use GCM/HTTP or CCS to send messages to your app.
+                    // The request to your server should be authenticated if your app
+                    // is using accounts.
                     sendRegistrationIdToBackend();
 
-                    // 등록 아이디를 저장해 등록 아이디를 매번 받지 않도록 한다.
-                    storeRegistrationId(myApp, regid);
+                    // For this demo: we don't need to send it because the device
+                    // will send upstream messages to a server that echo back the
+                    // message using the 'from' address in the message.
+
+                    // Persist the registration ID - no need to register again.
+                    storeRegistrationId(context, regid);
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
                     // If there is an error, don't just keep trying to register.
@@ -122,25 +164,40 @@ public class JwNotification {
         }.execute(null, null, null);
     }
 
-    private void storeRegistrationId(Context context, String regid) {
+    /**
+     * Stores the registration ID and app versionCode in the application's
+     * {@code SharedPreferences}.
+     *
+     * @param context application's context.
+     * @param regId registration ID
+     */
+    private void storeRegistrationId(Context context, String regId) {
         final SharedPreferences prefs = getGCMPreferences(context);
         int appVersion = getAppVersion(context);
         Log.i(TAG, "Saving regId on app version " + appVersion);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(PROPERTY_REG_ID, regid);
+        editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
         editor.commit();
     }
-
+    /**
+     * Sends the registration ID to your server over HTTP, so it can use GCM/HTTP
+     * or CCS to send messages to your app. Not needed for this demo since the
+     * device sends upstream messages to a server that echoes back the message
+     * using the 'from' address in the message.
+     */
     private void sendRegistrationIdToBackend() {
-        myListener.onTokenResponse(regid);
+        // Your implementation here.
     }
-
+    /**
+     * isPlayServices
+     * @return
+     */
     private boolean isPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(myApp);
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(context);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, (Activity) myApp,
+                GooglePlayServicesUtil.getErrorDialog(resultCode, (Activity) context,
                         PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
                 Log.i("ICELANCER", "This device is not supported.");

@@ -23,7 +23,7 @@ public class JwWebView extends WebView {
     private JwWebViewListener webViewListener;
 
     /**
-     *
+     * JwWebView
      * @param context
      * @param webChromeClient
      */
@@ -55,7 +55,7 @@ public class JwWebView extends WebView {
     }
 
     /**
-     *
+     * setupWebViewDefaults
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void setupWebViewDefaults() {
@@ -88,7 +88,7 @@ public class JwWebView extends WebView {
     }
 
     /**
-     *
+     * onKeyDown
      * @param keyCode
      * @param event
      * @return

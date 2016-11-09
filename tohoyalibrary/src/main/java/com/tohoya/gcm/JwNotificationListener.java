@@ -5,7 +5,15 @@ package com.tohoya.gcm;
  */
 
 public interface JwNotificationListener {
+
+    /**
+     * onTokenResponse
+     * @param token
+     */
     void onTokenResponse(String token);
 
+    /**
+     * finish
+     */
     void finish();
 }

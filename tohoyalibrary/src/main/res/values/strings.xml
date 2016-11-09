@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TohoyaLibrary</string>
+    <string name="gcm_defaultSenderId"></string>
 </resources>

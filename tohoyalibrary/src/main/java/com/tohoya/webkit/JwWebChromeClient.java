@@ -12,14 +12,14 @@ public class JwWebChromeClient extends WebChromeClient {
     private JwWebChromeClientListener myListener;
 
     /**
-     *
+     * JwWebChromeClient
      */
     public JwWebChromeClient() {
         super();
     }
 
     /**
-     *
+     * onJsAlert
      * @param webView
      * @param url
      * @param message
@@ -32,7 +32,7 @@ public class JwWebChromeClient extends WebChromeClient {
     }
 
     /**
-     *
+     * onJsConfirm
      * @param webView
      * @param url
      * @param message
@@ -45,7 +45,7 @@ public class JwWebChromeClient extends WebChromeClient {
     }
 
     /**
-     *
+     * onProgressChanged
      * @param webView
      * @param newProgress
      */
@@ -55,7 +55,7 @@ public class JwWebChromeClient extends WebChromeClient {
     }
 
     /**
-     *
+     * setEventListener
      * @param listener
      */
     public void setEventListener(JwWebChromeClientListener listener) {

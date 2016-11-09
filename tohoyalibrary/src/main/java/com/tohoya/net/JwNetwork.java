@@ -12,7 +12,7 @@ import android.net.NetworkInfo;
 
 public class JwNetwork {
     /**
-     *
+     * isService
      * @param myApp
      * @return
      */

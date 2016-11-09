@@ -22,14 +22,41 @@
     <application android:allowBackup="true" android:label="@string/app_name"
         android:supportsRtl="true">
     </application>
+    <!--<receiver-->
+        <!--android:name="com.tohoya.gcm.GcmBroadcastReceiver"-->
+        <!--android:permission="com.google.android.c2dm.permission.SEND" >-->
+        <!--<intent-filter>-->
+            <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
+            <!--<category android:name="com.tohoya" />-->
+        <!--</intent-filter>-->
+    <!--</receiver>-->
+
     <receiver
-        android:name="com.tohoya.gcm.GcmBroadcastReceiver"
+        android:name="com.google.android.gms.gcm.GcmReceiver"
+        android:exported="true"
         android:permission="com.google.android.c2dm.permission.SEND" >
         <intent-filter>
             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            <category android:name="com.tohoya" />
+            <category android:name="com.tohoya.gcm" />
         </intent-filter>
     </receiver>
-    <service android:name="com.tohoya.gcm.GcmIntentService" />
+    <service
+        android:name="com.tohoya.gcm.JwListenerService"
+        android:exported="false" >
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        </intent-filter>
+    </service>
+    <service
+        android:name="com.tohoya.gcm.JwIDListenerService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="com.google.android.gms.iid.InstanceID" />
+        </intent-filter>
+    </service>
+    <service
+        android:name="com.tohoya.gcm.RegistrationIntentService"
+        android:exported="false">
+    </service>
 
 </manifest>
