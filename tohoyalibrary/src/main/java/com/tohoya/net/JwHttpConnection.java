@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -23,6 +25,7 @@ import java.util.Set;
  */
 
 public class JwHttpConnection {
+    String TAG = "# JwHttpConnection #";
     URL url;
     String url_string;
     ConnectionTask task;
@@ -42,7 +45,7 @@ public class JwHttpConnection {
 
     public void urlConnection(String url) {
         if(task == null) task = new ConnectionTask();
-        task.execute(url, null);
+        task.execute(url, "");
     }
 
     public void urlConnection(String url, HashMap<String, String> params) {
@@ -75,17 +78,19 @@ public class JwHttpConnection {
     }
 
     public String getPostParams(HashMap<String, String> params) {
+        if(params != null) return "";
+
         String data = "";
 
-        if(params != null){
-            Set key_set = params.keySet();
-            Iterator<String> it = key_set.iterator();
-            while(it.hasNext()) {
-                String key = it.next();
-                if(!data.isEmpty()) data += "&";
-                data += "&" + setHashMap(key, params.get(key));
-            }
+        Set key_set = params.keySet();
+        Iterator<String> it = key_set.iterator();
+        while(it.hasNext()) {
+            String key = it.next();
+            if(!data.isEmpty()) data += "&";
+            data += "&" + setHashMap(key, params.get(key));
         }
+
+        //Log.d(TAG, data);
 
         return data;
     }
@@ -93,7 +98,7 @@ public class JwHttpConnection {
     public class ConnectionTask extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();;
+            super.onPreExecute();
         }
 
         @Override
@@ -107,19 +112,28 @@ public class JwHttpConnection {
                 conn.setConnectTimeout(15000 /* milliseconds */);
                 conn.setRequestMethod("POST");
 
-
                 conn.setRequestProperty("Cookie", myListener.getCookieResult());
                 conn.setDoOutput(true);
 
                 //conn.setDoInput(true);
-                OutputStreamWriter wt = new OutputStreamWriter(conn.getOutputStream());
-                wt.write(params[1]);
-                wt.flush();
-
+                if(!params[1].isEmpty() && params[1] != null) {
+                    OutputStreamWriter wt = new OutputStreamWriter(conn.getOutputStream());
+                    wt.write(params[1]);
+                    wt.flush();
+                    wt.close();
+                }
 
                 conn.connect();
-                response = conn.getResponseMessage();
-                Log.d("RESPONSE", "The response is: " + response);
+                StringBuilder builder = new StringBuilder();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+                String line;
+                while((line = rd.readLine()) != null) {
+                    builder.append(line);
+                }
+                response = builder.toString();
+                rd.close();
+                //response = conn.getResponseMessage();
+                //Log.d("RESPONSE", "The response is: " + response);
             }
             catch (IOException e) {
                 new AlertDialog.Builder(null)

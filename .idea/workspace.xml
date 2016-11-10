@@ -7,12 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ce647eb-65b3-426f-a108-b37fb0f22ab1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/net/JwHttpConnectionListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/net/JwHttpConnection.java" afterPath="$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/net/JwHttpConnection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tohoyalibrary/tohoyalibrary.iml" afterPath="$PROJECT_DIR$/tohoyalibrary/tohoyalibrary.iml" />
     </list>
     <ignored path="TohoyaLibrary.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,15 +45,17 @@
         <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/net/JwHttpConnection.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="417">
-              <caret line="103" column="59" selection-start-line="103" selection-start-column="59" selection-end-line="103" selection-end-column="59" />
+              <caret line="108" column="59" selection-start-line="108" selection-start-column="59" selection-end-line="108" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#742#743#0" expanded="true" />
-                <element signature="e#805#806#0" expanded="true" />
-                <element signature="e#1417#1418#0" expanded="true" />
-                <element signature="e#1454#1455#0" expanded="true" />
-                <element signature="e#4728#4729#0" expanded="true" />
-                <element signature="e#4771#4772#0" expanded="true" />
+                <element signature="e#848#849#0" expanded="true" />
+                <element signature="e#911#912#0" expanded="true" />
+                <element signature="e#1521#1522#0" expanded="true" />
+                <element signature="e#1558#1559#0" expanded="true" />
+                <marker date="1478760791000" expanded="true" signature="2853:5403" ph="{...}" />
+                <marker date="1478760791000" expanded="true" signature="2911:2956" ph="{...}" />
+                <marker date="1478760791000" expanded="true" signature="3034:5040" ph="{...}" />
+                <marker date="1478760791000" expanded="true" signature="5112:5297" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -116,11 +114,9 @@
       <file leaf-file-name="JwNotification.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="135">
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2612,7 +2608,14 @@
       <option name="project" value="LOCAL" />
       <updated>1478746593428</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="ANDROID">
+      <created>1478759573224</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1478759573224</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2747,26 +2750,26 @@
     <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/net/JwHttpConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
-          <caret line="103" column="59" selection-start-line="103" selection-start-column="59" selection-end-line="103" selection-end-column="59" />
+          <caret line="108" column="59" selection-start-line="108" selection-start-column="59" selection-end-line="108" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#742#743#0" expanded="true" />
-            <element signature="e#805#806#0" expanded="true" />
-            <element signature="e#1417#1418#0" expanded="true" />
-            <element signature="e#1454#1455#0" expanded="true" />
-            <element signature="e#4728#4729#0" expanded="true" />
-            <element signature="e#4771#4772#0" expanded="true" />
+            <element signature="e#848#849#0" expanded="true" />
+            <element signature="e#911#912#0" expanded="true" />
+            <element signature="e#1521#1522#0" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <marker date="1478760791000" expanded="true" signature="2853:5403" ph="{...}" />
+            <marker date="1478760791000" expanded="true" signature="2911:2956" ph="{...}" />
+            <marker date="1478760791000" expanded="true" signature="3034:5040" ph="{...}" />
+            <marker date="1478760791000" expanded="true" signature="5112:5297" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tohoyalibrary/src/main/java/com/tohoya/gcm/JwNotification.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="135">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
