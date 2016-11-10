@@ -1,7 +1,9 @@
 package com.tohoya.gcm;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -148,11 +150,19 @@ public class JwNotification {
 
                     // Persist the registration ID - no need to register again.
                     storeRegistrationId(context, regid);
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-                    // If there is an error, don't just keep trying to register.
-                    // Require the user to click a button again, or perform
-                    // exponential back-off.
+                } catch (IOException e) {
+                    new AlertDialog.Builder(null)
+                            .setTitle("Error")
+                            .setMessage(e.getMessage())
+                            .setPositiveButton(android.R.string.ok,
+                                    new AlertDialog.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+
+                                        }
+                                    })
+                            .setCancelable(false)
+                            .create()
+                            .show();
                 }
                 return msg;
             }
