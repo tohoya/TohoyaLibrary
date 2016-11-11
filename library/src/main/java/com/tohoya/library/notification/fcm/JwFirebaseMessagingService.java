@@ -1,5 +1,6 @@
 package com.tohoya.library.notification.fcm;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -13,6 +14,8 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import com.tohoya.library.R;
+
+import java.util.Map;
 
 /**
  * Created by jinyoungho on 2016. 11. 11..
@@ -30,15 +33,38 @@ public class JwFirebaseMessagingService extends FirebaseMessagingService {
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // [START_EXCLUDE]
-        // There are two types of messages data messages and notification messages. Data messages are handled
-        // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
-        // traditionally used with GCM. Notification messages are only received here in onMessageReceived when the app
-        // is in the foreground. When the app is in the background an automatically generated notification is displayed.
-        // When the user taps on the notification they are returned to the app. Messages containing both notification
-        // and data payloads are treated as notification messages. The Firebase console always sends notification
-        // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
-        // [END_EXCLUDE]
+
+//        Map<String, String> bundle = remoteMessage.getData();
+//        System.out.println(bundle.toString());
+//        String title = bundle.get("title"); //노드 서버에서 message에서 title 받아오기
+//        String message = bundle.get("message");
+//        String location = bundle.get("location");
+//        Double lat = Double.valueOf(bundle.get("lat"));//노드 서버에서 message에서 message 받아오기
+//        Double lot = Double.valueOf(bundle.get("lot"));//노드 서버에서 message에서 message 받아오기
+//
+//
+//        Intent intent = new Intent(this, MainActivity.class);//푸시알람 클릭시 띄울 페이지
+//        intent.putExtra("location",location);
+//        intent.putExtra("lat", lat); // 인텐트에 데이터 위도 담아주기
+//        intent.putExtra("lot", lot); // 인텐트에 데이터 경도 담아주기
+//
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //MainActiviy 위쪽의 스택을 모두 제거
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+//                PendingIntent.FLAG_ONE_SHOT);  //PendingIntent를 FLAG_ONE_SHOT(일회용)
+//
+//        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+//                .setSmallIcon(android.R.drawable.ic_dialog_email) //푸시 아이콘 설정
+//                .setContentTitle(title) //푸시 타이틀 이름
+//                .setContentText(message)//푸시 서브 타이틀
+//                .setAutoCancel(true)//선택시 자동제거?
+//                .setSound(defaultSoundUri) // 도착시 알람
+//                .setContentIntent(pendingIntent); // PendingIntent 정의
+//
+//        NotificationManager notificationManager =
+//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build()); //푸시 빌더를 매니저로 넘겨주기 (푸시 실행)
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -54,18 +80,15 @@ public class JwFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        sendNotification(remoteMessage.getData().get("message"), remoteMessage.getData().get("title"), remoteMessage.getData().get("badge_count"));
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
+        sendNotification(remoteMessage.getData());
     }
-    // [END receive_message]
 
     /**
      * Create and show a simple notification containing the received FCM message.
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody, String title, String badge) {
+    private void sendNotification(Map<String, String> messageBody) {
         Intent intent = new Intent(this, this.getClass());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -74,8 +97,8 @@ public class JwFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_stat_ic_notification)
-                .setContentTitle(title)
-                .setContentText(messageBody)
+                .setContentTitle(messageBody.get("title"))
+                .setContentText(messageBody.get("message"))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
