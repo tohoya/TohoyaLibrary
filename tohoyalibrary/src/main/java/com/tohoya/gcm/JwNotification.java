@@ -37,7 +37,7 @@ public class JwNotification {
     /**
      * Tag used on log messages.
      */
-    static final String TAG = "JwGcmNotification";
+    static final String TAG = "# JwGcmNotification #";
 
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
@@ -65,6 +65,7 @@ public class JwNotification {
             if (regid.isEmpty()) {
                 registerInBackground();
             } else {
+                Log.d(TAG, SENDER_ID);
                 myListener.onTokenResponse(regid);
             }
         } else {
@@ -135,6 +136,7 @@ public class JwNotification {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
                     }
+                    Log.d(TAG, SENDER_ID);
                     regid = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regid;
 
@@ -197,7 +199,7 @@ public class JwNotification {
      * using the 'from' address in the message.
      */
     private void sendRegistrationIdToBackend() {
-        // Your implementation here.
+        myListener.onTokenResponse(regid);
     }
     /**
      * isPlayServices

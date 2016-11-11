@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">TohoyaLibrary</string>
-    <string name="gcm_defaultSenderId"></string>
+    <string name="gcm_defaultSenderId">11</string>
 </resources>
