@@ -11,7 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 public class JwFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
-    private static final String TAG = "JwFirebaseInstanceIDService";
+    private static final String TAG = "JFIIDS";
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of

@@ -20,7 +20,7 @@ import com.tohoya.R;
 
 public class JwFirebaseMessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "JwFirebaseMessagingService";
+    private static final String TAG = "JFMS";
 
     /**
      * Called when message is received.
