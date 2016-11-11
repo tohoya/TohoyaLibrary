@@ -1,1 +1,1 @@
-include ':tohoyalibrary', ':android-support-v4', ':google-play-services'
+include ':android-support-v4', ':google-play-services', ':library'
