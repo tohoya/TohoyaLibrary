@@ -13,6 +13,7 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -132,40 +133,44 @@ public class JwNotification {
             @Override
             protected String doInBackground(Void... params) {
                 String msg = "";
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(context);
+                if(SENDER_ID.isEmpty()) {
+                    try {
+                        if (gcm == null) {
+                            gcm = GoogleCloudMessaging.getInstance(context);
+                        }
+                        Log.d(TAG, SENDER_ID);
+                        regid = gcm.register(SENDER_ID);
+                    } catch(IOException e) {
+                        new AlertDialog.Builder(null)
+                                .setTitle("Error")
+                                .setMessage(e.getMessage())
+                                .setPositiveButton(android.R.string.ok,
+                                        new AlertDialog.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        })
+                                .setCancelable(false)
+                                .create()
+                                .show();
                     }
-                    Log.d(TAG, SENDER_ID);
-                    regid = gcm.register(SENDER_ID);
-                    msg = "Device registered, registration ID=" + regid;
-
-                    // You should send the registration ID to your server over HTTP,
-                    // so it can use GCM/HTTP or CCS to send messages to your app.
-                    // The request to your server should be authenticated if your app
-                    // is using accounts.
-                    sendRegistrationIdToBackend();
-
-                    // For this demo: we don't need to send it because the device
-                    // will send upstream messages to a server that echo back the
-                    // message using the 'from' address in the message.
-
-                    // Persist the registration ID - no need to register again.
-                    storeRegistrationId(context, regid);
-                } catch (IOException e) {
-                    new AlertDialog.Builder(null)
-                            .setTitle("Error")
-                            .setMessage(e.getMessage())
-                            .setPositiveButton(android.R.string.ok,
-                                    new AlertDialog.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                        }
-                                    })
-                            .setCancelable(false)
-                            .create()
-                            .show();
+                } else {
+                    regid = FirebaseInstanceId.getInstance().getToken();
                 }
+                msg = "Device registered, registration ID=" + regid;
+
+                // You should send the registration ID to your server over HTTP,
+                // so it can use GCM/HTTP or CCS to send messages to your app.
+                // The request to your server should be authenticated if your app
+                // is using accounts.
+                sendRegistrationIdToBackend();
+
+                // For this demo: we don't need to send it because the device
+                // will send upstream messages to a server that echo back the
+                // message using the 'from' address in the message.
+
+                // Persist the registration ID - no need to register again.
+                storeRegistrationId(context, regid);
                 return msg;
             }
 

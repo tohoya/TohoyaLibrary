@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/TohoyaLibrary.iml" filepath="$PROJECT_DIR$/TohoyaLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-support-v4/android-support-v4.iml" filepath="$PROJECT_DIR$/android-support-v4/android-support-v4.iml" />
       <module fileurl="file://$PROJECT_DIR$/google-play-services/google-play-services.iml" filepath="$PROJECT_DIR$/google-play-services/google-play-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/tohoyalibrary/tohoyalibrary.iml" filepath="$PROJECT_DIR$/tohoyalibrary/tohoyalibrary.iml" />
     </modules>
   </component>
