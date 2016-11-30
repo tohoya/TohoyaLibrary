@@ -60,13 +60,12 @@ public class JwNotification {
         // Check device for Play Services APK. If check succeeds, proceed with
         //  GCM registration.
         if (isPlayServices()) {
-            gcm = GoogleCloudMessaging.getInstance(context);
             regid = getRegistrationId(context);
 
             if (regid.isEmpty()) {
                 registerInBackground();
             } else {
-                Log.d(TAG, SENDER_ID);
+                //Log.d(TAG, SENDER_ID);
                 myListener.onTokenResponse(regid);
             }
         } else {
@@ -133,49 +132,41 @@ public class JwNotification {
             @Override
             protected String doInBackground(Void... params) {
                 String msg = "";
-                if(SENDER_ID.isEmpty()) {
-                    try {
-                        if (gcm == null) {
-                            gcm = GoogleCloudMessaging.getInstance(context);
-                        }
-                        Log.d(TAG, SENDER_ID);
-                        regid = gcm.register(SENDER_ID);
-                    } catch(IOException e) {
-                        new AlertDialog.Builder(null)
-                                .setTitle("Error")
-                                .setMessage(e.getMessage())
-                                .setPositiveButton(android.R.string.ok,
-                                        new AlertDialog.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-
-                                            }
-                                        })
-                                .setCancelable(false)
-                                .create()
-                                .show();
-                    }
-                } else {
+                if(SENDER_ID == null) {
                     regid = FirebaseInstanceId.getInstance().getToken();
+                } else {
+                    if(!SENDER_ID.isEmpty()) {
+                        try {
+                            if (gcm == null) {
+                                gcm = GoogleCloudMessaging.getInstance(context);
+                            }
+                            regid = gcm.register(SENDER_ID);
+                        } catch (IOException e) {
+                            new AlertDialog.Builder(null)
+                                    .setTitle("Error")
+                                    .setMessage(e.getMessage())
+                                    .setPositiveButton(android.R.string.ok,
+                                            new AlertDialog.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+
+                                                }
+                                            })
+                                    .setCancelable(false)
+                                    .create()
+                                    .show();
+                        }
+                    } else {
+                        regid = "";
+                    }
                 }
-                msg = "Device registered, registration ID=" + regid;
 
-                // You should send the registration ID to your server over HTTP,
-                // so it can use GCM/HTTP or CCS to send messages to your app.
-                // The request to your server should be authenticated if your app
-                // is using accounts.
-                sendRegistrationIdToBackend();
-
-                // For this demo: we don't need to send it because the device
-                // will send upstream messages to a server that echo back the
-                // message using the 'from' address in the message.
-
-                // Persist the registration ID - no need to register again.
                 storeRegistrationId(context, regid);
-                return msg;
+                return regid;
             }
 
             @Override
-            protected void onPostExecute(String msg) {
+            protected void onPostExecute(String token) {
+                sendRegistrationIdToBackend(token);
             }
 
         }.execute(null, null, null);
@@ -203,8 +194,8 @@ public class JwNotification {
      * device sends upstream messages to a server that echoes back the message
      * using the 'from' address in the message.
      */
-    private void sendRegistrationIdToBackend() {
-        myListener.onTokenResponse(regid);
+    private void sendRegistrationIdToBackend(String token) {
+        myListener.onTokenResponse(token);
     }
     /**
      * isPlayServices

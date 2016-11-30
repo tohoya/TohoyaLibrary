@@ -4,7 +4,11 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -19,7 +23,9 @@ import java.util.Map;
 
 public class JwWebView extends WebView {
 
+    String TAG = "jwWebView";
     private WebSettings webSettings;
+    private Context myContext;
     private JwWebViewListener webViewListener;
 
     /**
@@ -27,9 +33,11 @@ public class JwWebView extends WebView {
      * @param context
      * @param webChromeClient
      */
-    public JwWebView(Context context, JwWebChromeClient webChromeClient) {
+    public JwWebView(Context context, JwWebChromeClient webChromeClient, Map<String, String> userAgent) {
 
         super(context);
+
+        myContext = context;
 
         setupWebViewDefaults();
 
@@ -43,15 +51,36 @@ public class JwWebView extends WebView {
 
         if(webChromeClient == null) {
             webChromeClient = new JwWebChromeClient();
+
             webChromeClient.setEventListener((JwWebChromeClientListener) context);
         }
 
         setWebChromeClient(webChromeClient);
 
         webSettings = getSettings();
+
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBuiltInZoomControls(true);
+
+        //String userAgent = webSettings.getUserAgentString();
+    }
+    public void setAgent(Map<String, String> userAgent) {
+        String device_id = "";
+        String device_token = "";
+        if(!userAgent.isEmpty()) {
+            device_id = userAgent.get("device_id");
+            device_token = userAgent.get("device_token");
+        }
+
+        //WebSettings webSettings = getSettings();
+
+        StringBuffer userAgentString = new StringBuffer();
+        userAgentString.append("APP_AGENT;device_type=ANDROID;device_id=" + device_id + ";token=" + device_token + ";");
+
+        webSettings.setUserAgentString(userAgentString.toString());
+
+        Log.d(TAG, webSettings.getUserAgentString());
     }
 
     /**
@@ -95,26 +124,30 @@ public class JwWebView extends WebView {
      */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-            new AlertDialog.Builder(getContext())
-                    .setTitle("타이틀")
-                    .setMessage("앱을 종료하시겠습니까?")
-                    .setPositiveButton("네",
-                            new AlertDialog.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface idalog, int which) {
-                                    System.exit(0);
-                                }
-                            })
-                    .setNegativeButton("아니요",
-                            new AlertDialog.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface dialog,
-                                        int which) {
-                                }
-                            })
-                    .setCancelable(false)
-                    .create()
-                    .show();
+            if(this.canGoBack() == true) {
+                this.goBack();
+            } else {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("DUNET")
+                        .setMessage("앱을 종료하시겠습니까?")
+                        .setPositiveButton("네",
+                                new AlertDialog.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface idalog, int which) {
+                                        System.exit(0);
+                                    }
+                                })
+                        .setNegativeButton("아니요",
+                                new AlertDialog.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int which) {
+                                    }
+                                })
+                        .setCancelable(false)
+                        .create()
+                        .show();
+            }
         }
 
         return true;
@@ -128,7 +161,6 @@ public class JwWebView extends WebView {
             webViewListener.onScroll(l, t, oldl, oldt);
         }
     }
-
 
     @Override
     public void destroy() {
