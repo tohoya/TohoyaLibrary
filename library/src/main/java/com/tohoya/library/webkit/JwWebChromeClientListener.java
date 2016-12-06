@@ -34,4 +34,14 @@ public interface JwWebChromeClientListener {
      * @return
      */
     boolean onConfirmEvent(WebView webView, String url, String message, final JsResult result);
+
+    /**
+     *
+     * @param view
+     * @param isDialog
+     * @param isUserGesture
+     * @param resultMsg
+     * @return
+     */
+    boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg);
 }

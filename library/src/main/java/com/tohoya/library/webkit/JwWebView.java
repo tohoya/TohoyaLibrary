@@ -51,32 +51,25 @@ public class JwWebView extends WebView {
 
         if(webChromeClient == null) {
             webChromeClient = new JwWebChromeClient();
-
             webChromeClient.setEventListener((JwWebChromeClientListener) context);
         }
 
         setWebChromeClient(webChromeClient);
 
         webSettings = getSettings();
-
+        //webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBuiltInZoomControls(true);
-
+        webSettings.setSupportMultipleWindows(true);
         //String userAgent = webSettings.getUserAgentString();
     }
-    public void setAgent(Map<String, String> userAgent) {
-        String device_id = "";
-        String device_token = "";
-        if(!userAgent.isEmpty()) {
-            device_id = userAgent.get("device_id");
-            device_token = userAgent.get("device_token");
-        }
-
-        //WebSettings webSettings = getSettings();
+    public void setAgent(String user_agent) {
 
         StringBuffer userAgentString = new StringBuffer();
-        userAgentString.append("APP_AGENT;device_type=ANDROID;device_id=" + device_id + ";token=" + device_token + ";");
+        userAgentString.append(user_agent);
 
         webSettings.setUserAgentString(userAgentString.toString());
 

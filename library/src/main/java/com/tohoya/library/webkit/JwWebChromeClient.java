@@ -57,6 +57,10 @@ public class JwWebChromeClient extends WebChromeClient {
     public void onProgressChanged(WebView webView, int newProgress) {
         myListener.onProgressEvent(webView, newProgress);
     }
+    @Override
+    public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg) {
+        return myListener.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+    };
 
     /**
      * setEventListener
