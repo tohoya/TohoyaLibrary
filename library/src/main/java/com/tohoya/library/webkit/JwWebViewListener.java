@@ -1,5 +1,7 @@
 package com.tohoya.library.webkit;
 
+import android.view.KeyEvent;
+
 /**
  * Created by jinyoungho on 2016. 11. 9..
  */
@@ -31,4 +33,15 @@ public interface JwWebViewListener {
      * @param newProgress
      */
     void onProgressChanged(int newProgress);
+
+
+    /**
+     * onKeyDown
+     * @param webView
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    boolean onWebviewKeyDown(JwWebView webView, int keyCode, KeyEvent event);
+
 }

@@ -32,7 +32,10 @@ public class JwWebChromeClient extends WebChromeClient {
      */
     @Override
     public boolean onJsAlert(WebView webView, String url, String message, final JsResult result) {
-        return myListener.onAlertEvent(webView, url, message, result);
+        if(myListener != null) {
+            return myListener.onAlertEvent(webView, url, message, result);
+        }
+        return true;
     }
 
     /**
@@ -45,7 +48,10 @@ public class JwWebChromeClient extends WebChromeClient {
      */
     @Override
     public boolean onJsConfirm(WebView webView, String url, String message, final JsResult result) {
-        return myListener.onConfirmEvent(webView, url, message, result);
+        if(myListener != null) {
+            return myListener.onConfirmEvent(webView, url, message, result);
+        }
+        return true;
     }
 
     /**
@@ -55,11 +61,16 @@ public class JwWebChromeClient extends WebChromeClient {
      */
     @Override
     public void onProgressChanged(WebView webView, int newProgress) {
-        myListener.onProgressEvent(webView, newProgress);
+        if(myListener != null) {
+            myListener.onProgressEvent(webView, newProgress);
+        }
     }
     @Override
     public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, android.os.Message resultMsg) {
-        return myListener.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+        if(myListener != null) {
+            return myListener.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+        }
+        return true;
     };
 
     /**

@@ -68,12 +68,17 @@ public class JwWebView extends WebView {
     }
     public void setAgent(String user_agent) {
 
-        StringBuffer userAgentString = new StringBuffer();
-        userAgentString.append(user_agent);
+        if(user_agent != "") {
+            StringBuffer userAgentString = new StringBuffer();
+            userAgentString.append(user_agent);
 
-        webSettings.setUserAgentString(userAgentString.toString());
-
+            webSettings.setUserAgentString(userAgentString.toString());
+        }
         Log.d(TAG, webSettings.getUserAgentString());
+    }
+
+    public void setListener(JwWebViewListener listener) {
+        webViewListener = listener;
     }
 
     /**
@@ -116,12 +121,15 @@ public class JwWebView extends WebView {
      * @return
      */
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(webViewListener != null) {
+            return webViewListener.onWebviewKeyDown(this, keyCode, event);
+        }
         if(keyCode == KeyEvent.KEYCODE_BACK) {
             if(this.canGoBack() == true) {
                 this.goBack();
             } else {
                 new AlertDialog.Builder(getContext())
-                        .setTitle("DUNET")
+                        .setTitle("앱")
                         .setMessage("앱을 종료하시겠습니까?")
                         .setPositiveButton("네",
                                 new AlertDialog.OnClickListener() {
