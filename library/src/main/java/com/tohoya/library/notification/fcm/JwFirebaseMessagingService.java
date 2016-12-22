@@ -88,7 +88,9 @@ public class JwFirebaseMessagingService extends FirebaseMessagingService {
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(Map<String, String> messageBody) {
+    public void sendNotification(Map<String, String> messageBody) {
+        String className = this.getClass().getSimpleName().trim();
+        Log.d(TAG, className);
         Intent intent = new Intent(this, this.getClass());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
